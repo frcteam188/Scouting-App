@@ -4,4 +4,8 @@ const createMatch = async (Body) => {
   return Schedule.create(Body);
 };
 
-module.exports = { createMatch };
+const getMatchByNumber = async (matchNumber) => {
+  return Schedule.findOne({ matchNumber });
+};
+
+module.exports = { createMatch, getMatchByNumber };
