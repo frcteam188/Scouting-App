@@ -17,6 +17,7 @@ for i in jsonData:
     if (i["match_number"]) and (i["comp_level"] == "qm"):
         newDict = {
             "matchNumber": i["match_number"],
+            "eventID": i["event_key"],
             "r1": i["alliances"]["red"]["team_keys"][0],
             "r2": i["alliances"]["red"]["team_keys"][1],
             "r3": i["alliances"]["red"]["team_keys"][2],
