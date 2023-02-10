@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { scheduleService } = require('../services');
 const ApiError = require('../utils/ApiError');
+const pick = require('../utils/pick');
 
 const insertMatch = catchAsync(async (req, res) => {
   const match = await scheduleService.createMatch(req.body);
@@ -16,4 +17,11 @@ const getMatch = catchAsync(async (req, res) => {
   res.send(match);
 });
 
-module.exports = { insertMatch, getMatch };
+const getAllMatches = catchAsync(async (req, res) => {
+  const filter = pick(req.query, ['eventID', 'matchNumber']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await scheduleService.queryMatches(filter, options);
+  res.send(result);
+});
+
+module.exports = { insertMatch, getMatch, getAllMatches };
