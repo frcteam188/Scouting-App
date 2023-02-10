@@ -10,6 +10,9 @@ const scheduleSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  eventName: {
+    type: String,
+  },
   r1: {
     type: String,
     required: true,

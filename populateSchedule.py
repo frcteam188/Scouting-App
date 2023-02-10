@@ -1,7 +1,7 @@
 import requests
 import json
 
-eventKey = "2020onosh"
+eventKey = "2019onosh"
 TBA_API_KEY = "YAD64DUsiMVI2ozfw2vmn1LdkYIoaUkAxLbPKEeHtnC6WPJcWZMtXelqScWY4Z0Q"
 url = (f"https://www.thebluealliance.com/api/v3/event/{eventKey}/matches/simple")
 headers = {'X-TBA-Auth-Key': TBA_API_KEY}
@@ -18,6 +18,7 @@ for i in jsonData:
         newDict = {
             "matchNumber": i["match_number"],
             "eventID": i["event_key"],
+            "eventName": "2019 Durham",
             "r1": i["alliances"]["red"]["team_keys"][0],
             "r2": i["alliances"]["red"]["team_keys"][1],
             "r3": i["alliances"]["red"]["team_keys"][2],
