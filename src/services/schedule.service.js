@@ -1,4 +1,4 @@
-const { Schedule } = require('../models');
+const { Schedule } = require("../models");
 
 const createMatch = async (Body) => {
   return Schedule.create(Body);
