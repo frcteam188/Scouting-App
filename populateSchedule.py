@@ -1,7 +1,7 @@
 import requests
 import json
 
-eventKey = "2019onosh"
+eventKey = "2020onosh"
 TBA_API_KEY = "YAD64DUsiMVI2ozfw2vmn1LdkYIoaUkAxLbPKEeHtnC6WPJcWZMtXelqScWY4Z0Q"
 url = (f"https://www.thebluealliance.com/api/v3/event/{eventKey}/matches/simple")
 headers = {'X-TBA-Auth-Key': TBA_API_KEY}
