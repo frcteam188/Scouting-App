@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const mongoose = require("mongoose");
+const { toJSON } = require("./plugins");
 
-const autoZoneSchema = mongoose.Schema({
+/* const autoZoneSchema = mongoose.Schema({
   noMansZone: { type: Number },
   communityZone: { type: Number },
 });
@@ -12,7 +12,7 @@ const teleZoneSchema = mongoose.Schema({
   oppLoadingZone: { type: Number },
   loadingZone: { type: Number },
 });
-
+ */
 const autoDataSchema = mongoose.Schema({
   mobility: {
     type: Boolean,
@@ -23,17 +23,17 @@ const autoDataSchema = mongoose.Schema({
     required: true,
   },
   preloadGamePeice: {
-    type: Boolean,
+    type: String,
     required: true,
   },
-  autoCubePickup: { type: autoZoneSchema },
+  autoCubePickup: { type: Number },
   autoCubeHighAttempt: { type: Number },
   autoCubeHighScored: { type: Number },
   autoCubeMedAttempt: { type: Number },
   autoCubeMedScored: { type: Number },
   autoCubeLowAttempt: { type: Number },
   autoCubeLowScored: { type: Number },
-  autoConePickup: { type: autoZoneSchema }, // {"communityZone": Number, "midField": Number}
+  autoConePickup: { type: Number }, // {"communityZone": Number, "midField": Number}
   autoConeHighAttempt: { type: Number },
   autoConeHighScored: { type: Number },
   autoConeMedAttempt: { type: Number },
@@ -45,7 +45,7 @@ const autoDataSchema = mongoose.Schema({
 });
 
 const teleDataSchema = mongoose.Schema({
-  teleCubeFloorPickup: { type: teleZoneSchema }, // {1: Number, 2:Number, 3: Number}
+  teleCubeFloorPickup: { type: Number }, // {1: Number, 2:Number, 3: Number}
   teleCubeHumanLoad: { type: Number },
   teleCubeHighAttempt: { type: Number },
   teleCubeHighScored: { type: Number },
@@ -54,7 +54,7 @@ const teleDataSchema = mongoose.Schema({
   teleCubeLowAttempt: { type: Number },
   teleCubeLowScored: { type: Number },
 
-  teleConeFloorPickup: { type: teleZoneSchema },
+  teleConeFloorPickup: { type: Number },
   teleConeHumanLoad: { type: Number },
   teleConeHighAttempt: { type: Number },
   teleConeHighScored: { type: Number },
@@ -110,7 +110,15 @@ const matchDataSchema = mongoose.Schema({
 gameDataSchema.plugin(toJSON);
 matchDataSchema.plugin(toJSON);
 
-const MatchData = mongoose.model('MatchData', matchDataSchema);
+matchDataSchema.statics.matchEntryExists = async function (
+  matchNumber,
+  driverStation
+) {
+  const matchEntry = await this.findOne({ matchNumber, driverStation });
+  return !!matchEntry;
+};
+
+const MatchData = mongoose.model("MatchData", matchDataSchema);
 
 module.exports = MatchData;
 
