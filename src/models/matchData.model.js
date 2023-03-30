@@ -1,18 +1,6 @@
 const mongoose = require("mongoose");
 const { toJSON } = require("./plugins");
 
-/* const autoZoneSchema = mongoose.Schema({
-  noMansZone: { type: Number },
-  communityZone: { type: Number },
-});
-
-const teleZoneSchema = mongoose.Schema({
-  noMansZone: { type: Number },
-  communityZone: { type: Number },
-  oppLoadingZone: { type: Number },
-  loadingZone: { type: Number },
-});
- */
 const autoDataSchema = mongoose.Schema({
   mobility: {
     type: Boolean,
@@ -33,7 +21,7 @@ const autoDataSchema = mongoose.Schema({
   autoCubeMedScored: { type: Number },
   autoCubeLowAttempt: { type: Number },
   autoCubeLowScored: { type: Number },
-  autoConePickup: { type: Number }, // {"communityZone": Number, "midField": Number}
+  autoConePickup: { type: Number },
   autoConeHighAttempt: { type: Number },
   autoConeHighScored: { type: Number },
   autoConeMedAttempt: { type: Number },
@@ -72,20 +60,20 @@ const endGameDataSchema = mongoose.Schema({
   comments: { type: String },
 });
 
-const gameDataSchema = mongoose.Schema({
-  autoData: {
-    type: autoDataSchema,
-    required: true,
-  },
-  teleData: {
-    type: teleDataSchema,
-    required: true,
-  },
-  endGameData: {
-    type: endGameDataSchema,
-    required: true,
-  },
-});
+// const gameDataSchema = mongoose.Schema({
+//   autoData: {
+//     type: autoDataSchema,
+//     required: true,
+//   },
+//   teleData: {
+//     type: teleDataSchema,
+//     required: true,
+//   },
+//   endGameData: {
+//     type: endGameDataSchema,
+//     required: true,
+//   },
+// });
 
 const matchDataSchema = mongoose.Schema({
   teamID: {
@@ -104,10 +92,21 @@ const matchDataSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  gameData: { type: gameDataSchema },
+  autoData: {
+    type: autoDataSchema,
+    required: true,
+  },
+  teleData: {
+    type: teleDataSchema,
+    required: true,
+  },
+  endGameData: {
+    type: endGameDataSchema,
+    required: true,
+  },
 });
 
-gameDataSchema.plugin(toJSON);
+//gameDataSchema.plugin(toJSON);
 matchDataSchema.plugin(toJSON);
 
 matchDataSchema.statics.matchEntryExists = async function (

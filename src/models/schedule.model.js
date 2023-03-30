@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { toJSON, paginate } = require('./plugins');
+const mongoose = require("mongoose");
+const { toJSON, paginate } = require("./plugins");
 
 const scheduleSchema = mongoose.Schema({
   matchNumber: {
@@ -44,6 +44,11 @@ scheduleSchema.index({ matchNumber: 1, eventID: 1 }, { unique: true });
 scheduleSchema.plugin(toJSON);
 scheduleSchema.plugin(paginate);
 
-const Schedule = mongoose.model('Schedule', scheduleSchema);
+scheduleSchema.statics.scheduleEntryExists = async function (matchNumber) {
+  const scheduleEntry = await this.findOne({ matchNumber });
+  return !!scheduleEntry;
+};
+
+const Schedule = mongoose.model("Schedule", scheduleSchema);
 
 module.exports = Schedule;
