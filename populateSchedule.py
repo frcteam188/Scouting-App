@@ -18,7 +18,7 @@ for i in jsonData:
         newDict = {
             "matchNumber": i["match_number"],
             "eventID": i["event_key"],
-            "eventName": "2019 Durham",
+            "eventName": "2020 Durham",
             "r1": i["alliances"]["red"]["team_keys"][0],
             "r2": i["alliances"]["red"]["team_keys"][1],
             "r3": i["alliances"]["red"]["team_keys"][2],

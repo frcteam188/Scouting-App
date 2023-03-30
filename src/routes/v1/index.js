@@ -4,6 +4,7 @@ const userRoute = require("./user.route");
 const docsRoute = require("./docs.route");
 const scheduleRoute = require("./schedule.route");
 const scoutRoute = require("./scout.route");
+const strategyRoute = require("./strategy.route");
 const config = require("../../config/config");
 
 const router = express.Router();
@@ -24,6 +25,10 @@ const defaultRoutes = [
   {
     path: "/scout",
     route: scoutRoute,
+  },
+  {
+    path: "/strategy",
+    route: strategyRoute,
   },
 ];
 
