@@ -55,8 +55,6 @@ const endGameDataSchema = mongoose.Schema({
   park: { type: Boolean },
   docked: { type: Boolean },
   engaged: { type: Boolean },
-  balanceAttempt: { type: Boolean },
-  balanceSuccess: { type: Boolean },
   comments: { type: String },
 });
 
