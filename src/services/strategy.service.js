@@ -160,16 +160,6 @@ const getMatchSummary = async (matchNumber) => {
               $cond: ["$endGameData.engaged", 1, 0],
             },
           },
-          teleBalanceAttempt: {
-            $sum: {
-              $cond: ["$endGameData.balanceAttempt", 1, 0],
-            },
-          },
-          teleBalanceSuccess: {
-            $sum: {
-              $cond: ["$endGameData.balanceSuccess", 1, 0],
-            },
-          },
         },
       },
       {
@@ -224,6 +214,84 @@ const getMatchSummary = async (matchNumber) => {
               100,
             ],
           },
+          autoHighGoalPointAvg: {
+            $multiply: [
+              {
+                $divide: [
+                  {
+                    $add: ["$avgAutoCubeHighScored", "$avgAutoConeHighScored"],
+                  },
+                  "$matchesPlayed",
+                ],
+              },
+              6,
+            ],
+          },
+          autoMedGoalPointAvg: {
+            $multiply: [
+              {
+                $divide: [
+                  {
+                    $add: ["$avgAutoCubeMedScored", "$avgAutoConeMedScored"],
+                  },
+                  "$matchesPlayed",
+                ],
+              },
+              4,
+            ],
+          },
+          autoLowGoalPointAvg: {
+            $multiply: [
+              {
+                $divide: [
+                  {
+                    $add: ["$avgAutoCubeLowScored", "$avgAutoConeLowScored"],
+                  },
+                  "$matchesPlayed",
+                ],
+              },
+              3,
+            ],
+          },
+          teleHighGoalPointAvg: {
+            $multiply: [
+              {
+                $divide: [
+                  {
+                    $add: ["$avgTeleCubeHighScored", "$avgTeleConeHighScored"],
+                  },
+                  "$matchesPlayed",
+                ],
+              },
+              5,
+            ],
+          },
+          teleMedGoalPointAvg: {
+            $multiply: [
+              {
+                $divide: [
+                  {
+                    $add: ["$avgTeleCubeMedScored", "$avgTeleConeMedScored"],
+                  },
+                  "$matchesPlayed",
+                ],
+              },
+              3,
+            ],
+          },
+          teleLowGoalPointAvg: {
+            $multiply: [
+              {
+                $divide: [
+                  {
+                    $add: ["$avgTeleCubeLowScored", "$avgTeleConeLowScored"],
+                  },
+                  "$matchesPlayed",
+                ],
+              },
+              2,
+            ],
+          },
           parkedPercent: {
             $multiply: [
               { $divide: ["$teleParkedSuccess", "$matchesPlayed"] },
@@ -239,18 +307,6 @@ const getMatchSummary = async (matchNumber) => {
           engagedPercent: {
             $multiply: [
               { $divide: ["$teleEngagedSuccess", "$matchesPlayed"] },
-              100,
-            ],
-          },
-          balancedAttemptPercent: {
-            $multiply: [
-              { $divide: ["$teleBalanceAttempt", "$matchesPlayed"] },
-              100,
-            ],
-          },
-          balancedPercent: {
-            $multiply: [
-              { $divide: ["$teleBalanceSuccess", "$matchesPlayed"] },
               100,
             ],
           },
@@ -405,16 +461,6 @@ const getTeamSummary = async (teamNum) => {
             $cond: ["$endGameData.engaged", 1, 0],
           },
         },
-        teleBalanceAttempt: {
-          $sum: {
-            $cond: ["$endGameData.balanceAttempt", 1, 0],
-          },
-        },
-        teleBalanceSuccess: {
-          $sum: {
-            $cond: ["$endGameData.balanceSuccess", 1, 0],
-          },
-        },
       },
     },
     {
@@ -466,6 +512,84 @@ const getTeamSummary = async (teamNum) => {
             100,
           ],
         },
+        autoHighGoalPointAvg: {
+          $multiply: [
+            {
+              $divide: [
+                {
+                  $add: ["$avgAutoCubeHighScored", "$avgAutoConeHighScored"],
+                },
+                "$matchesPlayed",
+              ],
+            },
+            6,
+          ],
+        },
+        autoMedGoalPointAvg: {
+          $multiply: [
+            {
+              $divide: [
+                {
+                  $add: ["$avgAutoCubeMedScored", "$avgAutoConeMedScored"],
+                },
+                "$matchesPlayed",
+              ],
+            },
+            4,
+          ],
+        },
+        autoLowGoalPointAvg: {
+          $multiply: [
+            {
+              $divide: [
+                {
+                  $add: ["$avgAutoCubeLowScored", "$avgAutoConeLowScored"],
+                },
+                "$matchesPlayed",
+              ],
+            },
+            3,
+          ],
+        },
+        teleHighGoalPointAvg: {
+          $multiply: [
+            {
+              $divide: [
+                {
+                  $add: ["$avgTeleCubeHighScored", "$avgTeleConeHighScored"],
+                },
+                "$matchesPlayed",
+              ],
+            },
+            5,
+          ],
+        },
+        teleMedGoalPointAvg: {
+          $multiply: [
+            {
+              $divide: [
+                {
+                  $add: ["$avgTeleCubeMedScored", "$avgTeleConeMedScored"],
+                },
+                "$matchesPlayed",
+              ],
+            },
+            3,
+          ],
+        },
+        teleLowGoalPointAvg: {
+          $multiply: [
+            {
+              $divide: [
+                {
+                  $add: ["$avgTeleCubeLowScored", "$avgTeleConeLowScored"],
+                },
+                "$matchesPlayed",
+              ],
+            },
+            2,
+          ],
+        },
         parkedPercent: {
           $multiply: [
             { $divide: ["$teleParkedSuccess", "$matchesPlayed"] },
@@ -481,18 +605,6 @@ const getTeamSummary = async (teamNum) => {
         engagedPercent: {
           $multiply: [
             { $divide: ["$teleEngagedSuccess", "$matchesPlayed"] },
-            100,
-          ],
-        },
-        balancedAttemptPercent: {
-          $multiply: [
-            { $divide: ["$teleBalanceAttempt", "$matchesPlayed"] },
-            100,
-          ],
-        },
-        balancedPercent: {
-          $multiply: [
-            { $divide: ["$teleBalanceSuccess", "$matchesPlayed"] },
             100,
           ],
         },
