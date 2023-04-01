@@ -13,8 +13,8 @@ const getMatchSummary = catchAsync(async (req, res) => {
       "There is currently no matches that were played"
     );
   }
-
-  res.send(matchSummary);
+  const flatList = matchSummary.reduce((acc, curr) => acc.concat(curr), []);
+  res.send(flatList);
 });
 
 const getTeamSummary = catchAsync(async (req, res) => {
