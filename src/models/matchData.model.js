@@ -55,7 +55,6 @@ const endGameDataSchema = mongoose.Schema({
   park: { type: Boolean },
   docked: { type: Boolean },
   engaged: { type: Boolean },
-  comments: { type: String },
 });
 
 // const gameDataSchema = mongoose.Schema({
@@ -83,7 +82,7 @@ const matchDataSchema = mongoose.Schema({
     required: true,
   },
   matchNumber: {
-    type: String,
+    type: Number,
     required: true,
   },
   driverStation: {
