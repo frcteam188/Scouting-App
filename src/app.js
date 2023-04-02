@@ -59,8 +59,9 @@ app.use((req, res, next) => {
   next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
 });
 
+// Serve the index.html file as the root page
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/index.html'));
+  res.sendFile(__dirname + '/index.html');
 });
 
 // convert error to ApiError, if needed
