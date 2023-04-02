@@ -44,8 +44,21 @@ const getTeamDataForMatch = catchAsync(async (req, res) => {
   res.send(teamMatchSummary);
 });
 
+const getAllMatchSummary = catchAsync(async (req, res) => {
+  const allMatchSummary = await strategyService.getAllMatchSummary();
+  if (!allMatchSummary) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "There is currently no matches that were played"
+    );
+  }
+  const flatList = allMatchSummary.reduce((acc, curr) => acc.concat(curr), []);
+  res.send(flatList);
+});
+
 module.exports = {
   getMatchSummary,
   getTeamSummary,
   getTeamDataForMatch,
+  getAllMatchSummary,
 };
