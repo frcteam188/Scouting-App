@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Master View</title>
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        th {
+            background-color: #dddddd;
+            font-weight: bold;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Master View</h1>
+    <table id="data-table">
+      <thead>
+        <tr id="header-row"></tr>
+      </thead>
+      <tbody id="data-body"></tbody>
+    </table>
+    <script>
+        fetch('https://scouting-api.herokuapp.com/v1/strategy/master-view')
+        .then(response => response.json())
+        .then(data => {
+            const tableHeaders = Object.keys(data[0]);
+            const headerRow = document.querySelector('#header-row');
+            const headerStates = {}; // keep track of sorting direction for each header
+            tableHeaders.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+            th.addEventListener('click', () => {
+                sortTable(header, headerStates);
+            });
+            headerStates[header] = 'none'; // initialize sorting direction to none
+            });
+            const dataBody = document.querySelector('#data-body');
+            data.forEach(item => {
+            const row = document.createElement('tr');
+            tableHeaders.forEach(header => {
+                const cell = document.createElement('td');
+                cell.textContent = item[header];
+                row.appendChild(cell);
+            });
+            dataBody.appendChild(row);
+            });
+            function sortTable(header, headerStates) {
+            const index = tableHeaders.indexOf(header);
+            const rows = Array.from(dataBody.querySelectorAll('tr'));
+            const sortingDirection = headerStates[header];
+            const sortedRows = rows.sort((rowA, rowB) => {
+                const cellA = rowA.querySelectorAll('td')[index].textContent;
+                const cellB = rowB.querySelectorAll('td')[index].textContent;
+                if (sortingDirection === 'none' || sortingDirection === 'desc') {
+                return cellA.localeCompare(cellB);
+                } else {
+                return cellB.localeCompare(cellA);
+                }
+            });
+            if (sortingDirection === 'none' || sortingDirection === 'desc') {
+                headerStates[header] = 'asc';
+            } else {
+                headerStates[header] = 'desc';
+            }
+            dataBody.innerHTML = '';
+            sortedRows.forEach(row => {
+                dataBody.appendChild(row);
+            });
+            }
+        })
+        .catch(error => console.error(error));
+
+    </script>
+  </body>
+</html>
